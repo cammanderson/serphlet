@@ -61,7 +61,7 @@ abstract class AbstractFilter
 	 * You must call doFilter() on the filter chain to continue running your application,
 	 * alternatively you can not which will stop the execution of your application.
 	 */
-    public function doFilter(\Symfony\Component\HttpFoundation\Request $request, \Symfony\Component\HttpFoundation\Response $response, \Serphlet\Filter\Chain $chain) {}
+    public function doFilter(\Symfony\Component\HttpFoundation\Request $request, \Symfony\Component\HttpFoundation\Response $response, \Serphlet\Filter\ChainInterface $chain) {}
 
     /**
 	 * At the end of the lifecycle of the filter the destroy method is called

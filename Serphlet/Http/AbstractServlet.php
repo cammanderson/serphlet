@@ -8,7 +8,7 @@ namespace Serphlet\Http;
  *
  * @author Cameron Manderson <cameronmanderson@gmail.com> (Serphlet Contributor)
  */
-abstract class Servlet extends \Serphlet\GenericServlet
+abstract class AbstractServlet extends \Serphlet\GenericServlet
 {
     const METHOD_DELETE = "DELETE";
     const METHOD_HEAD = "HEAD";

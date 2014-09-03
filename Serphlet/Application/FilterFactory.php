@@ -43,7 +43,7 @@ class FilterFactory
             try {
                 $filterConfig = $servlet->getServletContext()->findFilterConfig($filterMap->getFilterName());
                 if ($filterConfig == null) {
-                    throw new Exception('Could not locate the filter config for the supplied filter name ' . $filterMap->getFilterName());
+                    throw new \Exception('Could not locate the filter config for the supplied filter name ' . $filterMap->getFilterName());
                 }
 
                 if ($filterChain == null)
@@ -51,7 +51,7 @@ class FilterFactory
                 $filterChain->addFilterConfig($filterConfig);
                 $n++;
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
 //                $log = Serphlet_Util_Logger_Manager::getLogger(__CLASS__);
 //                $log->error('createFilterChain() caused exception ' . $e->getMessage());
                 continue;

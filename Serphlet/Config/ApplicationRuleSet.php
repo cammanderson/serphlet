@@ -80,8 +80,8 @@ final class FilterDefFactory extends Serphlet_Phigester_AbstractObjectCreationFa
         // Instantiate the new object and return it
         $config = null;
         try {
-            $config = \Serphlet\ClassLoader\::newInstance($className, 'Serphlet\Config\FilterDef');
-        } catch (Exception $e) {
+            $config = \Serphlet\ClassLoader::newInstance($className, 'Serphlet\Config\FilterDef');
+        } catch (\Exception $e) {
             $this->digester->getLogger()->error('Serphlet\Config\FilterDefFactory->createObject(): ' . $e->getMessage());
         }
 
@@ -105,8 +105,8 @@ final class FilterMapsFactory extends Serphlet_Phigester_AbstractObjectCreationF
         // Instantiate the new object and return it
         $config = null;
         try {
-            $config = \Serphlet\ClassLoader\::newInstance($className, 'Serphlet\Config\FilterMaps');
-        } catch (Exception $e) {
+            $config = \Serphlet\ClassLoader::newInstance($className, 'Serphlet\Config\FilterMaps');
+        } catch (\Exception $e) {
             $this->digester->getLogger()->error('Serphlet\Config\FilterMapsFactory->createObject(): ' . $e->getMessage());
         }
 
@@ -130,9 +130,9 @@ final class ErrorPageFactory extends Serphlet_Phigester_AbstractObjectCreationFa
         // Instantiate the new object and return it
         $config = null;
         try {
-            $config = \Serphlet\ClassLoader\::newInstance($className, 'Serphlet\Config\ErrorPage');
+            $config = \Serphlet\ClassLoader::newInstance($className, 'Serphlet\Config\ErrorPage');
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->digester->getLogger()->error('Serphlet\Config\ErrorPageFactory->createObject(): ' . $e->getMessage());
         }
 
@@ -156,9 +156,9 @@ final class ApplicationConfigFactory extends Serphlet_Phigester_AbstractObjectCr
         // Instantiate the new object and return it
         $config = null;
         try {
-            $config = \Serphlet\ClassLoader\::newInstance($className, 'Serphlet\Config\ServletConfig');
+            $config = \Serphlet\ClassLoader::newInstance($className, 'Serphlet\Config\ServletConfig');
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->digester->getLogger()->error('Serphlet\Config\ApplicationConfig->createObject(): ' . $e->getMessage());
         }
 
@@ -182,9 +182,9 @@ final class ServletMapFactory extends Serphlet_Phigester_AbstractObjectCreationF
         // Instantiate the new object and return it
         $config = null;
         try {
-            $config = \Serphlet\ClassLoader\::newInstance($className, 'Serphlet\Config\ServletMap');
+            $config = \Serphlet\ClassLoader::newInstance($className, 'Serphlet\Config\ServletMap');
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->digester->getLogger()->error('Serphlet\Config\ServletMapFactory->createObject(): ' . $e->getMessage());
         }
 

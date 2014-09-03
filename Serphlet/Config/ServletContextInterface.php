@@ -20,7 +20,7 @@ interface ServletContextInterface
     public function getServlet($name);
     public function getServlets();
     public function getServletNames();
-    public function log($message, Exception $throwable);
+    public function log($message, \Exception $throwable);
     public function getRealPath($path);
     public function getServerInfo();
     public function getInitParameter($name);

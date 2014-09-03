@@ -128,7 +128,7 @@ class Host
 
         // Check for configured servlets
         $servlets = $this->context->getServlets();
-        if(empty($servlets)) throw new \Serphlet\Exception\Unavailable('No servlets configured');
+        if(empty($servlets)) throw new \Serphlet\Exception\UnavailableException('No servlets configured');
 
         // Attempt to match urls
         $urlMapped = array();
@@ -171,7 +171,7 @@ class Host
         }
 
         // Check the result
-        if(empty($this->config)) throw new \Serphlet\Exception\Unavailable('No servlets configured');
+        if(empty($this->config)) throw new \Serphlet\Exception\UnavailableException('No servlets configured');
         $this->config->setServletMapping($pattern);
 
         // Setup the request paths
@@ -208,11 +208,6 @@ class Host
     {
         try {
             ob_start();
-//			$this->log = Serphlet_Util_Logger_Manager::getRootLogger();
-
-            // Register a shutdown function
-            register_shutdown_function(array('Serphlet_Host', 'shutdown'));
-            set_error_handler(array('Serphlet_Host', 'defaultErrorHandler'));
 
             // Initialise
             self::init($basePath);
@@ -267,10 +262,6 @@ class Host
         if ($error != null && in_array($error['type'], $raiseTypes) && !$this->performed) {
             $this->performed = true;
             @ob_end_clean();
-//			if (!empty($this->log)) {
-//				$this->log->error('PHP Error: '. $error['file'] . ':' . $error['line'] . ' ' . $error['message'] . ' LEVEL: ' . $error['type']);
-//			}
-            self::gracefulDie(new Exception('Encountered a PHP Fatal Error'));
             exit();
         }
     }
@@ -298,7 +289,7 @@ class Host
     {
         // Attempt a graceful die
         @ob_end_clean();
-        if(empty($exception)) $exception = new Exception('Unhandled PHP Exception encountered');
+        if(empty($exception)) $exception = new \Exception('Unhandled PHP Exception encountered');
 //        if (!empty($this->log)) {
 //            $this->log->error('Caught exception ' . $exception->getMessage());
 //            $this->log->debug($exception->getTraceAsString());
