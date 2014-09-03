@@ -5,7 +5,7 @@ namespace Serphlet\Application;
  * A concrete implementation of a Filter Chain for use in the appication
  * @author Cameron Manderson <cameronmanderson@gmail.com> (Serphlet Contributor)
  */
-class FilterChain implements \Serphlet\Filter\Chain
+class FilterChain implements \Serphlet\Filter\ChainInterface
 {
     private $filterConfigs = array();
     private $currentPosition = 0;
