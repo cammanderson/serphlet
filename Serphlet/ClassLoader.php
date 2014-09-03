@@ -77,7 +77,7 @@ class ClassLoader
             return true;
         } else {
             // Get reflection information of the class from
-            $reflectionClass = new ReflectionClass($classFromName);
+            $reflectionClass = new \ReflectionClass($classFromName);
             if ($reflectionClass->isSubclassOf($className)) {
                 return true;
             } else {
@@ -91,14 +91,14 @@ class ClassLoader
 	 *
 	 * @param string $name The fully qualified name of the class (with packages)
 	 * @return string Return the only class name
-	 * @throws IllegalArgumentException - If the class name is not valid
-	 * @throws ClassNotFoundException - If the class cannot be found
+	 * @throws \Serphlet\Exception\IllegalArgumentException - If the class name is not valid
+	 * @throws \Serphlet\Exception\ClassNotFoundException - If the class cannot be found
 	 */
     public static function loadClass($name)
     {
         //Check if the fully qualified class name is valid
         if (!self::isValidClassName($name)) {
-            throw new \Serphlet\Exception\IllegalArgument('Illegal class name ' . $name . '.');
+            throw new \Serphlet\Exception\IllegalArgumentException('Illegal class name ' . $name . '.');
         }
 
         // Get only the class name
@@ -115,11 +115,11 @@ class ClassLoader
  if (class_exists($className, false)) { return $className;
                 } else {
                     $msg = '"' . $name . '" class does not exist.';
-                    throw new \Serphlet\Exception\ClassNotFound($msg);
+                    throw new \Serphlet\Exception\ClassNotFoundException($msg);
                 }
             } else {
                 $msg = 'PHP class file "' . $pathClassFile . '" does not exist.';
-                throw new \Serphlet\Exception\ClassNotFound($msg);
+                throw new \Serphlet\Exception\ClassNotFoundException($msg);
             }
         }
     }
@@ -132,9 +132,9 @@ class ClassLoader
 	 * @param string $parent If is set, the class must be a subclass of the class
 	 * which name is equal to "parent"
 	 * @return $object New instance of the class
-	 * @throws IllegalArgumentException - If the class name is not valid
-	 * @throws ClassNotFoundException - If the class cannot be found
-	 * @throws InstantiationException - If there is not a
+	 * @throws \Serphlet\Exception\IllegalArgumentException - If the class name is not valid
+	 * @throws \Serphlet\Exception\ClassNotFoundException - If the class cannot be found
+	 * @throws \Serphlet\Exception\InstantiationException - If there is not a
 	 * no-required-argument constructor for this class.
 	 */
     public static function newInstance($name, $parent = null)
@@ -142,17 +142,17 @@ class ClassLoader
         try {
             // Load the class and get only the class name
             $className = self::loadClass($name);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
 
         // Get reflection information of the class
         $class = new \ReflectionClass($className);
         if ($class->isAbstract()) {
-            throw new \Serphlet\Exception\Instantiation('Cannot instantiate abstract class.');
+            throw new \Serphlet\Exception\InstantiationException('Cannot instantiate abstract class.');
         }
         if (!is_null($parent) && ($className != $parent) && !$class->isSubclassOf($parent)) {
-            throw new \Serphlet\Exception\Instantiation('"' . $name . '" is not a subclass of "' . $parent . '".');
+            throw new \Serphlet\Exception\InstantiationException('"' . $name . '" is not a subclass of "' . $parent . '".');
         }
 
         // Get reflection information of the constructor
@@ -160,11 +160,11 @@ class ClassLoader
         if (!is_null($constructor)) {
             // Check accessibility of the constructor
             if (!$constructor->isPublic()) {
-                throw new \Serphlet\Exception\Instantiation('You are not allowed to access' . ' the no-required-argument constructor for this class.');
+                throw new \Serphlet\Exception\InstantiationException('You are not allowed to access' . ' the no-required-argument constructor for this class.');
             }
             // Check the no-required-argument constructor
             if ($constructor->getNumberOfRequiredParameters() > 0) {
-                throw new \Serphlet\Exception\Instantiation('There is not a no-required-argument constructor for this class.');
+                throw new \Serphlet\Exception\InstantiationException('There is not a no-required-argument constructor for this class.');
             }
         }
 

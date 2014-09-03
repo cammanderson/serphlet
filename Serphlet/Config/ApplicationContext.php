@@ -160,7 +160,7 @@ class ApplicationContext implements ServletContextInterface
      *
      * @param filterMaps The filter mappings to be added
      *
-     * @exception IllegalArgumentException if the specified filter name
+     * @exception \Serphlet\Exception\IllegalArgumentException if the specified filter name
      *  does not match an existing filter definition, or the filter mapping
      *  is malformed
      */
@@ -191,7 +191,7 @@ class ApplicationContext implements ServletContextInterface
      *
      * @param filterMap The filter mapping to be added
      *
-     * @exception IllegalArgumentException if the specified filter name
+     * @exception \Serphlet\Exception\IllegalArgumentException if the specified filter name
      *  does not match an existing filter definition, or the filter mapping
      *  is malformed
      * @todo: Lookup the error message
@@ -203,13 +203,13 @@ class ApplicationContext implements ServletContextInterface
         $servletName = $filterMap->getServletName();
         $urlPattern = $filterMap->getURLPattern();
         if ($this->findFilterDef($filterName) == null)
-            throw new \Serphlet\Exception\IllegalArgument("applicationConfig->filterMap->name not found");
+            throw new \Serphlet\Exception\IllegalArgumentException("applicationConfig->filterMap->name not found");
         if (($servletName == null) && ($urlPattern == null))
-            throw new \Serphlet\Exception\IllegalArgument("applicationConfig->filterMap->either specify servlet name or url filter");
+            throw new \Serphlet\Exception\IllegalArgumentException("applicationConfig->filterMap->either specify servlet name or url filter");
         if (($servletName != null) && ($urlPattern != null))
-            throw new \Serphlet\Exception\IllegalArgument("applicationConfig->filterMap->either specify only a servlet name or url filter");
+            throw new \Serphlet\Exception\IllegalArgumentException("applicationConfig->filterMap->either specify only a servlet name or url filter");
         if (($urlPattern != null) && !$this->validateURLPattern($urlPattern))
-            throw new \Serphlet\Exception\IllegalArgument("applicationConfig->filterMap->pattern url pattern not valid");
+            throw new \Serphlet\Exception\IllegalArgumentException("applicationConfig->filterMap->pattern url pattern not valid");
 
         // Add this filter mapping to our registered set
         $this->filterMaps[] = $filterMap;
@@ -425,13 +425,13 @@ class ApplicationContext implements ServletContextInterface
     {
         // Locate the servlet
         $servlet = $this->getServlet($servletMapping->getServletName());
-        if(empty($servlet)) throw new \Serphlet\Exception\IllegalArgument("servletConfig->servletMapping->name servlet name not found");
+        if(empty($servlet)) throw new \Serphlet\Exception\IllegalArgumentException("servletConfig->servletMapping->name servlet name not found");
 
         // Test that servlet mapping url is correct
         $urlPatterns = $servletMapping->getUrlPatterns();
         foreach ($urlPatterns as $urlPattern) {
             if (($urlPattern != null) && !$this->validateURLPattern($urlPattern))
-                throw new \Serphlet\Exception\IllegalArgument("servletConfig->servletMapping->pattern url pattern not valid");
+                throw new \Serphlet\Exception\IllegalArgumentException("servletConfig->servletMapping->pattern url pattern not valid");
             $servlet->addMapping($urlPattern);
         }
         $this->servletMapping[] = $servletMapping;

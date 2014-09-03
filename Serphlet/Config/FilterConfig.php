@@ -25,14 +25,12 @@ class FilterConfig
      * @param filterDef Filter definition for which a FilterConfig is to be
      *  constructed
      *
-     * @exception ClassCastException if the specified class does not implement
-     *  the <code>Serphlet_Filter</code> interface
-     * @exception ClassNotFoundException if the filter class cannot be found
-     * @exception IllegalAccessException if the filter class cannot be
+     * @exception \Serphlet\Exception\ClassNotFoundException if the filter class cannot be found
+     * @exception \Serphlet\Exception\IllegalAccessException if the filter class cannot be
      *  publicly instantiated
-     * @exception InstantiationException if an exception occurs while
+     * @exception \Serphlet\Exception\InstantiationException if an exception occurs while
      *  instantiating the filter object
-     * @exception ServletException if thrown by the filter's init() method
+     * @exception \Serphlet\Exception if thrown by the filter's init() method
      */
     public function __construct(\Serphlet\Config\ApplicationContext $context, \Serphlet\Config\FilterDef $filterDef)
     {
@@ -42,9 +40,6 @@ class FilterConfig
 
     public function __wakeup()
     {
-//        if (is_null(self::$log)) {
-//            self::$log = Serphlet_Util_Logger_Manager::getLogger(__CLASS__);
-//        }
     }
 
     // ----------------------------------------------------- Instance Variables
@@ -137,14 +132,12 @@ class FilterConfig
     /**
      * Return the application Filter we are configured for.
      *
-     * @exception ClassCastException if the specified class does not implement
-     *  the <code>Serphlet_Filter</code> interface
-     * @exception ClassNotFoundException if the filter class cannot be found
-     * @exception IllegalAccessException if the filter class cannot be
+     * @exception \Serphlet\Exception\ClassNotFoundException if the filter class cannot be found
+     * @exception \Serphlet\Exception\IllegalAccessException if the filter class cannot be
      *  publicly instantiated
-     * @exception InstantiationException if an exception occurs while
+     * @exception \Serphlet\Exception\InstantiationException if an exception occurs while
      *  instantiating the filter object
-     * @exception ServletException if thrown by the filter's init() method
+     * @exception \Serphlet\Exception if thrown by the filter's init() method
      * @return Filter
      */
     public function getFilter()
@@ -190,14 +183,12 @@ class FilterConfig
      *
      * @param filterDef The new filter definition
      *
-     * @exception ClassCastException if the specified class does not implement
-     *  the <code>Serphlet_Filter</code> interface
-     * @exception ClassNotFoundException if the filter class cannot be found
-     * @exception IllegalAccessException if the filter class cannot be
+     * @exception \Serphlet\Exception\ClassNotFoundException if the filter class cannot be found
+     * @exception \Serphlet\Exception\IllegalAccessException if the filter class cannot be
      *  publicly instantiated
-     * @exception InstantiationException if an exception occurs while
+     * @exception \Serphlet\Exception\InstantiationException if an exception occurs while
      *  instantiating the filter object
-     * @exception ServletException if thrown by the filter's init() method
+     * @exception \Serphlet\Exception\Exception if thrown by the filter's init() method
      */
     public function setFilterDef(\Serphlet\Config\FilterDef $filterDef)
     {

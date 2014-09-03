@@ -13,9 +13,9 @@ class RequestDispatcher implements \Serphlet\Request\DispatcherInterface
     /**
 	 * Commons Logging instance.
 	 *
-	 * @var Logger
+	 * @var \Psr\Log\LoggerInterface
 	 */
-    protected static $log = null;
+    protected $log = null;
 
     /**
 	 * The context this RequestDispatcher is associated with.
@@ -42,17 +42,10 @@ class RequestDispatcher implements \Serphlet\Request\DispatcherInterface
     public function __construct(\Serphlet\Config\ServletContext $context)
     {
         $this->context = $context;
-
-//        if (is_null(self::$log)) {
-//            self::$log = Serphlet_Util_Logger_Manager::getLogger(__CLASS__);
-//        }
     }
 
     public function __wakeup()
     {
-//        if (is_null(self::$log)) {
-//            self::$log = Serphlet_Util_Logger_Manager::getLogger(__CLASS__);
-//        }
     }
 
     /**
@@ -83,8 +76,8 @@ class RequestDispatcher implements \Serphlet\Request\DispatcherInterface
     {
         // Reset any output that has been buffered, but keep headers/cookies
         if ($response->isCommitted()) {
-            if (self::$log->isDebugEnabled()) {
-                self::$log->error('Forward on committed response');
+            if (!empty($this->log)) {
+                $this->log->error('Forward on committed response');
             }
             throw new \Serphlet\Exception\IllegalStateException('Cannot forward after response has been committed');
         }
@@ -131,8 +124,8 @@ class RequestDispatcher implements \Serphlet\Request\DispatcherInterface
 
         $fileExists = @fopen($path, 'r', true);
         if (!$fileExists) {
-            self::$log->error('Resource ' . $path . ' is not found');
-            throw new \Serphlet\Exception\Unavailable('The resource is currently unavailable');
+            $this->$log->error('Resource ' . $path . ' is not found');
+            throw new \Serphlet\Exception\UnavailableException('The resource is currently unavailable');
         } else fclose($fileExists);
 
         if ($response->getAutoflush()) {
